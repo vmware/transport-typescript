@@ -369,10 +369,12 @@ export class BrokerConnector implements EventBusEnabled {
             });
 
             // decrease the connectedBrokers count by 1
-            this._galacticChannels.get(channel).connectedBrokers--;
+            if (this._galacticChannels.get(channel)) {
+                this._galacticChannels.get(channel).connectedBrokers--;
+            }
 
             // if connectedBrokers === 0, destroy the entry from galacticChannels map
-            if (this._galacticChannels.get(channel).connectedBrokers === 0) {
+            if ( this._galacticChannels.get(channel) && this._galacticChannels.get(channel).connectedBrokers === 0) {
                 this._galacticChannels.delete(channel);
             }
 
